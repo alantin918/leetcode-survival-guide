@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode 生存指南 (博弈/Mobile 面試專用)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-text">
+                <h1><i class="fas fa-shield-alt"></i> LeetCode 20 題生存指南</h1>
+                <p>Mobile 工程師專屬防禦題單：掌握套路，無懼白板題</p>
+            </div>
+            <div class="header-controls">
+                <button id="flashcard-toggle" class="control-btn" aria-label="切換閃卡模式">
+                    <i class="fas fa-eye-slash"></i> <span>啟動閃卡模式</span>
+                </button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="切換暗黑/白天模式">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 防瞌睡：遊戲化進度條 -->
+        <section class="progress-section">
+            <div class="progress-header">
+                <div class="progress-title"><i class="fas fa-battery-three-quarters"></i> 面試防禦力充能進度</div>
+                <div class="progress-stats"><span id="mastered-count">0</span> / 20 題 (<span id="progress-percent">0%</span>)</div>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+            <p class="motivation-quote" id="motivation-quote">「還在睡？你的競爭對手已經刷完 5 題了！」</p>
+        </section>
+
+        <nav class="category-nav" id="category-nav">
+            <!-- 分類標籤將由 JS 動態生成 -->
+        </nav>
+
+        <main id="question-list">
+            <!-- 題目卡片將由 JS 動態生成 -->
+        </main>
+
+        <footer>
+            <p>&copy; 2026 LeetCode Survival Guide. Wake up and code!</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
