@@ -28,17 +28,18 @@ const questionsData = [
         leetcodeUrl: "https://leetcode.com/problems/valid-anagram/",
         englishDesc: "Given two strings <code>s</code> and <code>t</code>, return <code>true</code> if <code>t</code> is an anagram of <code>s</code>, and <code>false</code> otherwise.",
         fullEnglishDesc: `An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.<br><br><strong>Example 1:</strong><br><pre>Input: s = "anagram", t = "nagaram"\nOutput: true</pre>`,
-        coreConcept: "把字典當作「帳本」：第一個字串存款(+1)，第二個字串提款(-1)，最後結算是否歸零。",
+        coreConcept: "利用 Hash Map 進行「字元頻率抵銷」，一邊累加、一邊扣除，若提早見底即代表不配對。",
         thoughtProcess: [
-            "先檢查長度，字數不一致絕對不是 Anagram。",
-            "建立一個字典 lookup = {} 作為帳本。",
-            "走訪第一個字串 s (存款)：如果字母不在字典，設為 1 (只出現一次)；如果已在，次數 +1 (更新出現幾次)。",
-            "走訪第二個字串 t (提款)：如果字母不在字典，或抵銷時發現次數不夠減，代表出現字數不同，直接 return false。",
-            "如果能順利跑完，代表兩邊字母次數完全一致！"
+            "先決條件防禦 (Early Return)：若兩個字串長度不同，組成必不相同，直接回傳 False。",
+            "建立一個雜湊表 `lookup = {}` 用來統計字元出現的頻率。",
+            "第一階段 (建表)：遍歷字串 s。若字母不在字典，初始化為 1；若已存在，則次數 +1。",
+            "第二階段 (抵銷)：遍歷字串 t。如果該字母不在 lookup 裡，或是次數已經被扣到 0，代表 t 出現了 s 沒有的字元或次數過多，直接回傳 False。",
+            "每次成功配對，就將 lookup 中該字母的次數減 1 (抵銷)。",
+            "如果能順利遍歷完 t 而沒有被擋下，代表兩邊字母次數完全抵銷，回傳 True！"
         ],
         variations: "😈 變形考題：如果是 Python，有沒有更短的寫法？👉 實務上可以直接用 `return collections.Counter(s) == collections.Counter(t)`，但在面試時，還是要展現手刻字典的能力！",
         complexity: { time: "O(n)", space: "O(1)" },
-        script: "「為了 O(n) 的效能，我會用 Dictionary 紀錄字元出現的淨次數。遇到新字元就賦值 1，遇到舊字元就 +1；第二個字串則反向扣除。」",
+        script: "「為了達到 O(n) 的時間複雜度，我會使用 Hash Map 來紀錄頻率。先防禦性檢查長度，然後遍歷第一個字串建立頻率表。接著遍歷第二個字串進行抵銷，一旦發現未記錄的字元或頻率不足，就能提早結束，避免不必要的運算。」",
         code: `// Python 邏輯實作\n/*\ndef isAnagram(s, t):\n    if len(s) != len(t): return False\n    lookup = {}\n    for i in s:\n        if i not in lookup:\n            lookup[i] = 1\n        else:\n            lookup[i] += 1\n    for j in t:\n        if j not in lookup or lookup[j] == 0:\n            return False\n        lookup[j] -= 1\n    return True\n*/\n\n// Swift 版本\nfunc isAnagram(_ s: String, _ t: String) -> Bool {\n    if s.count != t.count { return false }\n    var counts = [Character: Int]()\n    for char in s { counts[char, default: 0] += 1 }\n    for char in t { counts[char, default: 0] -= 1 }\n    return counts.values.allSatisfy { $0 == 0 }\n}`
     },
     {
