@@ -140,6 +140,17 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .script-box strong { font-style: normal; color: var(--secondary-color); display: block; margin-bottom: 5px; }
 
 /* Code Section */
+/* ===== 小學生版 ===== */
+.kid-section { margin-top: 12px; }
+.toggle-kid-btn { width: 100%; background: linear-gradient(135deg, #fff3cd, #ffeaa7); color: #856404; border: 2px dashed #ffc107; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem; text-align: left; transition: all 0.2s; }
+.toggle-kid-btn:hover { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); transform: translateY(-1px); }
+.toggle-kid-btn.active { border-radius: 8px 8px 0 0; border-bottom: none; }
+.kid-content { display: none; background: linear-gradient(135deg, #fffbeb, #fff8dc); border: 2px dashed #ffc107; border-top: none; border-radius: 0 0 8px 8px; padding: 14px 16px; color: #533f03; font-size: 0.95rem; line-height: 1.8; }
+.kid-content.show { display: block; }
+[data-theme="dark"] .toggle-kid-btn { background: linear-gradient(135deg, #3d3000, #4a3900); color: #ffd166; border-color: #ffd166; }
+[data-theme="dark"] .toggle-kid-btn:hover { background: linear-gradient(135deg, #4a3900, #5c4700); }
+[data-theme="dark"] .kid-content { background: linear-gradient(135deg, #2d2400, #352b00); border-color: #ffd166; color: #ffe599; }
+
 .code-section { margin-top: auto; }
 .toggle-code-btn { width: 100%; background-color: var(--tag-bg); color: var(--text-color); border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px; }
 .toggle-code-btn:hover { background-color: var(--card-border); }
