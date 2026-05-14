@@ -248,6 +248,30 @@ const questionsData = [
     }
 ];
 
+// --- 小學生標題 ---
+const kidTitles = {
+    1: "🕵️ 尋找失散的另一半",
+    217: "🃏 寶可夢卡牌抓包器",
+    242: "⚖️ 天平秤積木",
+    49: "🧩 字母積木分類大作戰",
+    125: "🪞 照鏡子看文字",
+    167: "✌️ 雙指頭神功買玩具",
+    15: "👨‍👩‍👦 三人行必有我師",
+    11: "🌊 哪邊矮就往哪邊縮的裝水桶",
+    121: "💰 時光機賺錢法",
+    3: "🪢 伸縮自如的橡皮筋",
+    424: "🎨 魔術畫筆換顏色",
+    206: "🔄 叫大家向後轉",
+    21: "🤝 兩條隊伍排成一列",
+    141: "🐢 龜兔賽跑找圈圈",
+    104: "🌳 尋找樹枝的最底端",
+    226: "🙃 把樹照鏡子翻過來",
+    100: "👯 找找看兩棵樹是不是雙胞胎",
+    20: "🧦 俄羅斯娃娃/襪子配對遊戲",
+    155: "📦 隨時告訴你最小數字的百寶箱",
+    704: "📖 翻字典找數字"
+};
+
 // --- 小學生解說 ---
 const kidExplanations = {
     1:   "你有一堆寫了數字的積木，老師說「找兩個加起來等於目標的」。笨方法是每兩個都試試看，超慢！聰明方法是：每拿到一個積木，就把它記在小筆記本上，然後看筆記本有沒有「我需要的那個」。只走一遍就搞定！",
@@ -342,54 +366,64 @@ function renderQuestions(data) {
                 </label>
                 
                 <div class="card-body ${isFlashcardMode ? 'flashcard-mode' : ''}">
-                    <div class="english-desc-box">
-                        <strong>
-                            <span><i class="fas fa-language"></i> Original Prompt</span>
-                            <button class="toggle-full-desc-btn" onclick="toggleFullDesc(this)">
-                                View Full <i class="fas fa-chevron-down"></i>
-                            </button>
-                        </strong>
-                        <div class="short-desc">${q.englishDesc}</div>
-                        <div class="full-desc-content">${q.fullEnglishDesc}</div>
-                    </div>
+                    <!-- 英文題目區域 -->
+                    <details class="english-desc-box">
+                        <summary>
+                            <strong><i class="fas fa-language"></i> Original Prompt (點擊展開)</strong>
+                        </summary>
+                        <div class="short-desc" style="margin-top: 10px;">${q.englishDesc}</div>
+                        <div class="full-desc-content" style="display: block; margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.2);">${q.fullEnglishDesc}</div>
+                    </details>
 
                     <div class="blur-content" onclick="revealContent(this)">
-                        <div class="concept-title"><i class="fas fa-lightbulb"></i> 核心觀念</div>
-                        <p class="concept-text">${q.coreConcept}</p>
-                        
-                        <div class="concept-title"><i class="fas fa-brain"></i> 思維引導 (Step-by-Step)</div>
-                        <ol class="thought-process">
-                            ${stepsHtml}
-                        </ol>
-                        
-                        <div class="variation-box">
-                            ${q.variations}
+                        <!-- 小學生模式 -->
+                        <div class="kid-section-dual">
+                            <h3 class="kid-title">👦 小學生標題：${kidTitles[q.id] || '生活場景大解密'}</h3>
+                            <div class="kid-scenario">
+                                <strong><i class="fas fa-child"></i> 破關絕招：</strong>
+                                <p>${kidExplanations[q.id] || '（尚未提供小學生版解說）'}</p>
+                            </div>
                         </div>
                         
-                        <div class="complexity">
-                            <span><i class="far fa-clock"></i> ${q.complexity.time}</span>
-                            <span><i class="fas fa-memory"></i> ${q.complexity.space}</span>
+                        <div class="adult-transition">
+                            👦 <strong>小學生模式已經看懂了嗎？準備好挑戰大人術語了嗎？</strong>
                         </div>
                         
-                        <div class="script-box">
-                            <strong><i class="fas fa-comment-dots"></i> 面試白板題防禦話術：</strong>
-                            ${q.script}
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="kid-section">
-                    <button class="toggle-kid-btn" onclick="toggleKid(this)">
-                        🧒 小學生也能懂的解說
-                    </button>
-                    <div class="kid-content">${kidExplanations[q.id] || '（尚未提供小學生版解說）'}</div>
-                </div>
+                        <!-- 大人面試模式 -->
+                        <details class="adult-mode">
+                            <summary class="adult-summary">👉 點我切換成【👨‍💻 大人面試模式】</summary>
+                            <div class="adult-content">
+                                <div class="concept-title"><i class="fas fa-lightbulb"></i> 演算法 / 資料結構</div>
+                                <p class="concept-text">${q.coreConcept}</p>
+                                
+                                <div class="complexity">
+                                    <span><i class="far fa-clock"></i> 時間複雜度: ${q.complexity.time}</span>
+                                    <span><i class="fas fa-memory"></i> 空間複雜度: ${q.complexity.space}</span>
+                                </div>
 
-                <div class="code-section">
-                    <button class="toggle-code-btn" onclick="toggleCode(this)">
-                        <i class="fas fa-code"></i> 顯示/隱藏 Swift 範例解答
-                    </button>
-                    <pre class="code-block"><code>${q.code}</code></pre>
+                                <div class="concept-title"><i class="fas fa-brain"></i> 思維引導 (Step-by-Step)</div>
+                                <ol class="thought-process">
+                                    ${stepsHtml}
+                                </ol>
+                                
+                                <div class="variation-box">
+                                    ${q.variations}
+                                </div>
+                                
+                                <div class="script-box">
+                                    <strong><i class="fas fa-comment-dots"></i> 🗣️ 面試金句（背起來）：</strong>
+                                    ${q.script}
+                                </div>
+                                
+                                <div class="code-section">
+                                    <button class="toggle-code-btn" onclick="toggleCode(this)">
+                                        <i class="fas fa-code"></i> 顯示/隱藏 Swift 程式碼
+                                    </button>
+                                    <pre class="code-block"><code>${q.code}</code></pre>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
                 </div>
             </div>
         `;
